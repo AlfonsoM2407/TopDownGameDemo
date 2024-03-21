@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://cd04a6ajbv5fg"]
+
+[ext_resource type="Script" path="res://Logic/Projectiles/Arrow/ArrowProjectile.cs" id="1_8g28j"]
+[ext_resource type="Texture2D" uid="uid://de0cstkxex48v" path="res://Tiny Swords (Update 010)/Factions/Knights/Troops/Archer/Arrow/Arrow.png" id="1_o0pfa"]
+
+[sub_resource type="SeparationRayShape2D" id="SeparationRayShape2D_wmptd"]
+length = 50.0
+
+[node name="ArrowProjectile" type="Node2D"]
+script = ExtResource("1_8g28j")
+
+[node name="Lifetime" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+autostart = true
+
+[node name="ProjectileSprite" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -3)
+texture = ExtResource("1_o0pfa")
+vframes = 2
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+rotation = -1.5708
+shape = SubResource("SeparationRayShape2D_wmptd")
