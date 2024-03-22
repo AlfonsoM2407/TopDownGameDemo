@@ -10,7 +10,7 @@ length = 50.0
 script = ExtResource("1_8g28j")
 
 [node name="Lifetime" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 0.8
 one_shot = true
 autostart = true
 

@@ -1,0 +1,55 @@
+[gd_scene load_steps=7 format=3 uid="uid://bv16vj4msldu6"]
+
+[ext_resource type="Script" path="res://Logic/Damageables/Creatures/Enemies/DynamiteGoblin.cs" id="1_6tf2w"]
+[ext_resource type="Texture2D" uid="uid://ddl7jr7uxgtwo" path="res://Tiny Swords (Update 010)/Factions/Goblins/Troops/TNT/Red/TNT_Red.png" id="1_v8nna"]
+[ext_resource type="Script" path="res://Logic/Damageables/Creatures/Enemies/PathfinderWithTimer.cs" id="3_d3slu"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1h7h6"]
+radius = 20.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_abmfk"]
+radius = 600.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5qbi1"]
+radius = 900.0
+
+[node name="DynamiteGoblin" type="CharacterBody2D"]
+collision_layer = 128
+collision_mask = 198
+motion_mode = 1
+wall_min_slide_angle = 0.0
+script = ExtResource("1_6tf2w")
+Speed = 25000.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_v8nna")
+hframes = 7
+vframes = 3
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2(0, 12)
+shape = SubResource("CircleShape2D_1h7h6")
+
+[node name="NavigationAgent" type="NavigationAgent2D" parent="."]
+navigation_layers = 128
+debug_enabled = true
+script = ExtResource("3_d3slu")
+
+[node name="Timer" type="Timer" parent="NavigationAgent"]
+wait_time = 0.5
+autostart = true
+
+[node name="AggroTriggerRange" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AggroTriggerRange"]
+shape = SubResource("CircleShape2D_abmfk")
+
+[node name="AggroMaintainRange" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AggroMaintainRange"]
+shape = SubResource("CircleShape2D_5qbi1")

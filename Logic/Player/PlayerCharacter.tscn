@@ -1,11 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://bf41k6o55lt4r"]
+[gd_scene load_steps=16 format=3 uid="uid://bf41k6o55lt4r"]
 
 [ext_resource type="Script" path="res://Logic/Player/PlayerCharacter.cs" id="1_tcfsw"]
 [ext_resource type="Texture2D" uid="uid://ccl6tsr6pup2a" path="res://Tiny Swords (Update 010)/Factions/Knights/Troops/Archer/Archer + Bow/Archer_Blue_(NoArms).png" id="2_d08cf"]
 [ext_resource type="PackedScene" uid="uid://byvvjfq4vswxa" path="res://Logic/Weapons/PlayerWeapon.tscn" id="3_3580s"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ld423"]
-size = Vector2(30, 40)
+[sub_resource type="CircleShape2D" id="CircleShape2D_du48b"]
+radius = 20.0
 
 [sub_resource type="Animation" id="Animation_g1kbv"]
 resource_name = "Idle"
@@ -84,16 +84,19 @@ states/Walking/node = SubResource("AnimationNodeAnimation_2fkg4")
 states/Walking/position = Vector2(697, 105)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_2fblx"), "Idle", "Walking", SubResource("AnimationNodeStateMachineTransition_76wnb"), "Walking", "Idle", SubResource("AnimationNodeStateMachineTransition_2f2jp")]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_oj6ua"]
+radius = 25.0
+
 [node name="PlayerCharacter" type="CharacterBody2D" node_paths=PackedStringArray("ActiveWeapon")]
 collision_layer = 64
-collision_mask = 6
+collision_mask = 198
 script = ExtResource("1_tcfsw")
 Speed = 40000.0
 ActiveWeapon = NodePath("PlayerWeapon")
 
 [node name="Collision" type="CollisionShape2D" parent="."]
-position = Vector2(0, 10)
-shape = SubResource("RectangleShape2D_ld423")
+position = Vector2(0, 12)
+shape = SubResource("CircleShape2D_du48b")
 
 [node name="CharacterSprite" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -114,4 +117,12 @@ tree_root = SubResource("AnimationNodeStateMachine_f68in")
 anim_player = NodePath("../AnimationPlayer")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(0.5, 0.5)
+zoom = Vector2(0.8, 0.8)
+
+[node name="Hurtbox" type="Area2D" parent="."]
+position = Vector2(0, 12)
+collision_layer = 64
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("CircleShape2D_oj6ua")
